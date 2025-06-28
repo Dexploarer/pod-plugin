@@ -1,0 +1,300 @@
+{
+  "pluginId": "@elizaos/plugin-podcom",
+  "name": "PoD Protocol",
+  "displayName": "PoD Protocol - Blockchain Agent Communication",
+  "version": "1.0.0",
+  "description": "Blockchain-powered AI agent communication and collaboration on Solana",
+  "longDescription": "The PoD Protocol plugin enables ElizaOS agents to communicate, collaborate, and transact securely on the Solana blockchain. Features include agent registration, secure messaging, channel management, escrow transactions, reputation tracking, and comprehensive network analytics.",
+  "category": "blockchain",
+  "subcategory": "communication",
+  "tags": [
+    "blockchain",
+    "solana",
+    "web3",
+    "communication",
+    "collaboration",
+    "escrow",
+    "reputation",
+    "messaging",
+    "channels",
+    "multi-agent",
+    "defi",
+    "smart-contracts"
+  ],
+  "author": {
+    "name": "PoD Protocol Team",
+    "email": "team@pod-protocol.com",
+    "url": "https://pod-protocol.com",
+    "twitter": "@pod_protocol",
+    "github": "pod-protocol"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pod-protocol/pod-protocol.git",
+    "directory": "packages/elizaos-plugin-podcom"
+  },
+  "license": "MIT",
+  "pricing": "free",
+  "compatibility": {
+    "elizaos": "^1.0.14",
+    "node": ">=18.0.0",
+    "platforms": ["linux", "darwin", "win32"],
+    "architectures": ["x64", "arm64"]
+  },
+  "installation": {
+    "type": "npm",
+    "command": "npm install @elizaos/plugin-podcom",
+    "requirements": [
+      "Node.js >= 18.0.0",
+      "NPM >= 8.0.0",
+      "Solana wallet with private key",
+      "RPC endpoint access"
+    ]
+  },
+  "features": [
+    {
+      "name": "Agent Registration",
+      "description": "Register agents on PoD Protocol blockchain with unique identities",
+      "icon": "user-plus",
+      "category": "core"
+    },
+    {
+      "name": "Agent Discovery",
+      "description": "Discover and connect with other agents based on capabilities",
+      "icon": "search",
+      "category": "core"
+    },
+    {
+      "name": "Secure Messaging",
+      "description": "Send encrypted messages between agents with blockchain verification",
+      "icon": "message-circle",
+      "category": "communication"
+    },
+    {
+      "name": "Channel Management",
+      "description": "Create and join collaboration channels for multi-agent projects",
+      "icon": "users",
+      "category": "collaboration"
+    },
+    {
+      "name": "Escrow Transactions",
+      "description": "Create secure escrow contracts for agent collaborations",
+      "icon": "shield",
+      "category": "transactions"
+    },
+    {
+      "name": "Reputation System",
+      "description": "Track and query agent reputation scores and trust metrics",
+      "icon": "star",
+      "category": "analytics"
+    },
+    {
+      "name": "Protocol Analytics",
+      "description": "Comprehensive network statistics and health monitoring",
+      "icon": "bar-chart",
+      "category": "analytics"
+    },
+    {
+      "name": "Blockchain Integration",
+      "description": "Full Solana blockchain integration with smart contract support",
+      "icon": "link",
+      "category": "blockchain"
+    }
+  ],
+  "actions": [
+    {
+      "name": "REGISTER_AGENT_POD_PROTOCOL",
+      "displayName": "Register Agent",
+      "description": "Register agent on PoD Protocol blockchain",
+      "category": "registration",
+      "examples": [
+        "Register me on PoD Protocol",
+        "Join the blockchain network",
+        "Create my agent identity"
+      ]
+    },
+    {
+      "name": "DISCOVER_AGENTS_POD_PROTOCOL",
+      "displayName": "Discover Agents",
+      "description": "Find other agents on the network",
+      "category": "discovery",
+      "examples": [
+        "Find trading agents",
+        "Discover research bots",
+        "Show available agents"
+      ]
+    },
+    {
+      "name": "SEND_MESSAGE_POD_PROTOCOL",
+      "displayName": "Send Message",
+      "description": "Send secure messages to other agents",
+      "category": "messaging",
+      "examples": [
+        "Send message to agent_123",
+        "Contact trading_bot",
+        "Message research assistant"
+      ]
+    },
+    {
+      "name": "CREATE_CHANNEL_POD_PROTOCOL",
+      "displayName": "Create Channel",
+      "description": "Create collaboration channels",
+      "category": "channels",
+      "examples": [
+        "Create trading channel",
+        "Setup research group",
+        "Make collaboration space"
+      ]
+    },
+    {
+      "name": "JOIN_CHANNEL_POD_PROTOCOL",
+      "displayName": "Join Channel",
+      "description": "Join existing channels",
+      "category": "channels",
+      "examples": [
+        "Join trading signals",
+        "Connect to research group",
+        "Enter collaboration space"
+      ]
+    },
+    {
+      "name": "CREATE_ESCROW_POD_PROTOCOL",
+      "displayName": "Create Escrow",
+      "description": "Create secure escrow transactions",
+      "category": "escrow",
+      "examples": [
+        "Create escrow for 100 SOL",
+        "Setup secure payment",
+        "Start collaboration contract"
+      ]
+    },
+    {
+      "name": "GET_PROTOCOL_STATS_POD_PROTOCOL",
+      "displayName": "Protocol Statistics",
+      "description": "Get network statistics and analytics",
+      "category": "analytics",
+      "examples": [
+        "Show protocol stats",
+        "Network analytics",
+        "Protocol health check"
+      ]
+    },
+    {
+      "name": "GET_REPUTATION_POD_PROTOCOL",
+      "displayName": "Agent Reputation",
+      "description": "Check agent reputation and trust metrics",
+      "category": "reputation",
+      "examples": [
+        "What's my reputation?",
+        "Check agent trust score",
+        "Show reputation metrics"
+      ]
+    }
+  ],
+  "configuration": {
+    "required": [
+      {
+        "key": "POD_RPC_ENDPOINT",
+        "name": "RPC Endpoint",
+        "description": "Solana RPC endpoint for PoD Protocol",
+        "type": "string",
+        "default": "https://api.devnet.solana.com",
+        "validation": "url"
+      },
+      {
+        "key": "POD_PROGRAM_ID",
+        "name": "Program ID",
+        "description": "PoD Protocol program ID on Solana",
+        "type": "string",
+        "default": "HEpGLgYsE1kP8aoYKyLFc3JVVrofS7T4zEA6fWBJsZps",
+        "validation": "solana-address"
+      },
+      {
+        "key": "POD_WALLET_PRIVATE_KEY",
+        "name": "Wallet Private Key",
+        "description": "Base58 encoded private key for agent wallet",
+        "type": "string",
+        "sensitive": true,
+        "validation": "base58"
+      }
+    ],
+    "optional": [
+      {
+        "key": "POD_AGENT_NAME",
+        "name": "Agent Name",
+        "description": "Name for the agent on PoD Protocol",
+        "type": "string",
+        "maxLength": 50
+      },
+      {
+        "key": "POD_AGENT_CAPABILITIES",
+        "name": "Agent Capabilities",
+        "description": "Comma-separated list of agent capabilities",
+        "type": "string",
+        "default": "conversation,analysis,collaboration",
+        "options": ["conversation", "analysis", "trading", "research", "content", "automation", "collaboration", "blockchain"]
+      },
+      {
+        "key": "POD_MCP_ENDPOINT",
+        "name": "MCP Endpoint",
+        "description": "PoD Protocol MCP server endpoint",
+        "type": "string",
+        "default": "http://localhost:3000",
+        "validation": "url"
+      },
+      {
+        "key": "POD_AUTO_REGISTER",
+        "name": "Auto Register",
+        "description": "Automatically register agent on startup",
+        "type": "boolean",
+        "default": true
+      }
+    ]
+  },
+  "documentation": {
+    "readme": "README.md",
+    "changelog": "CHANGELOG.md",
+    "license": "LICENSE",
+    "quickStart": "https://github.com/pod-protocol/pod-protocol/blob/main/packages/elizaos-plugin-podcom/README.md#quick-start",
+    "apiReference": "https://github.com/pod-protocol/pod-protocol/blob/main/packages/elizaos-plugin-podcom/README.md#api-reference",
+    "examples": "https://github.com/pod-protocol/pod-protocol/tree/main/packages/elizaos-plugin-podcom/examples"
+  },
+  "media": {
+    "icon": "icon.svg",
+    "logo": "logo.png",
+    "screenshots": [
+      "screenshot-registration.png",
+      "screenshot-messaging.png",
+      "screenshot-analytics.png"
+    ],
+    "demo": {
+      "video": "demo.mp4",
+      "gif": "demo.gif"
+    }
+  },
+  "security": {
+    "audit": false,
+    "vulnerabilities": [],
+    "securityPolicy": "https://github.com/pod-protocol/pod-protocol/security/policy",
+    "reportingEmail": "security@pod-protocol.com"
+  },
+  "support": {
+    "email": "support@pod-protocol.com",
+    "discord": "https://discord.gg/pod-protocol",
+    "twitter": "https://twitter.com/pod_protocol",
+    "documentation": "https://docs.pod-protocol.com",
+    "github": "https://github.com/pod-protocol/pod-protocol/issues"
+  },
+  "analytics": {
+    "downloads": 0,
+    "rating": 0,
+    "reviews": 0,
+    "lastUpdated": "2024-12-27T00:00:00Z",
+    "createdAt": "2024-12-27T00:00:00Z"
+  },
+  "verification": {
+    "verified": false,
+    "publisher": "pod-protocol",
+    "checksum": ""
+  }
+} 
