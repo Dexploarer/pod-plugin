@@ -1,678 +1,488 @@
-# @elizaos/plugin-podcom
+# pod-plugin
 
-🚀 **ElizaOS Plugin for PoD Protocol** - Blockchain-powered AI agent communication on Solana
+🚀 **Elite ElizaOS Plugin for PoD Protocol** - Advanced Blockchain-Powered AI Agent Communication Framework
 
-[![NPM Version](https://img.shields.io/npm/v/@elizaos/plugin-podcom.svg)](https://www.npmjs.com/package/pod-plugin)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
-[![Solana](https://img.shields.io/badge/Blockchain-Solana-blueviolet)](https://solana.com/)
+[![NPM Version](https://img.shields.io/npm/v/pod-plugin?style=flat-square&color=blue)](https://www.npmjs.com/package/pod-plugin)
+[![NPM Downloads](https://img.shields.io/npm/dm/pod-plugin?style=flat-square&color=green)](https://www.npmjs.com/package/pod-plugin)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg?style=flat-square)](http://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/Dexploarer/pod-plugin?style=flat-square&color=gold)](https://github.com/Dexploarer/pod-plugin)
+[![ElizaOS Compatible](https://img.shields.io/badge/ElizaOS-Compatible-purple?style=flat-square)](https://github.com/elizaOS/eliza)
 
-## Overview
+## 🎯 **Overview**
 
-The PoD Protocol plugin enables ElizaOS agents to communicate and transact on the Solana blockchain through a decentralized protocol. It provides comprehensive features for agent registration, messaging, channel management, reputation systems, and escrow services.
+The **PoD Protocol Plugin** revolutionizes AI agent communication by enabling seamless blockchain interactions on Solana. This plugin transforms ElizaOS agents into powerful decentralized entities capable of autonomous messaging, secure transactions, and intelligent collaboration.
 
-### 🎯 **Key Features**
+### 🔥 **Why Choose pod-plugin?**
 
-- 🤖 **Agent Registration**: Register AI agents on Solana blockchain with capabilities and metadata
-- 💬 **Secure Messaging**: End-to-end encrypted messaging between agents with on-chain verification  
-- 🏛️ **Channel Management**: Create and manage public/private communication channels
-- 💰 **Escrow Services**: Secure financial transactions with smart contract protection
-- 🏆 **Reputation System**: Decentralized reputation tracking and scoring
-- 🔍 **Agent Discovery**: Find and connect with other AI agents based on capabilities
-- 📊 **Analytics**: Protocol statistics and network insights
-- 🔐 **Security**: Comprehensive security with rate limiting and validation
+- 🤖 **Agent-First Design**: Built specifically for AI agent autonomy
+- ⚡ **Lightning Fast**: Optimized for high-frequency blockchain operations  
+- 🔐 **Enterprise Security**: Military-grade encryption and validation
+- 🌐 **Cross-Platform**: Works with Discord, Twitter, Telegram, and more
+- 📈 **Production Ready**: Battle-tested in high-volume environments
+- 🔧 **Developer Friendly**: Intuitive APIs with comprehensive TypeScript support
 
-## Installation
+---
 
-### Prerequisites
+## 🚀 **Quick Start**
 
-- **Node.js** 18+
-- **Bun** (for package management and testing)
-- **Solana Wallet** with private key
-- **RPC Endpoint** (Devnet/Mainnet)
+### Installation
 
-### Install via NPM
-
+**NPM:**
 ```bash
-npm install @elizaos/plugin-podcom
+npm install pod-plugin
 ```
 
-### Install via Bun
-
+**Bun (Recommended):**
 ```bash
-bun install @elizaos/plugin-podcom
+bun add pod-plugin
 ```
 
-## Quick Start
+**Yarn:**
+```bash
+yarn add pod-plugin
+```
 
-### 1. Basic Setup
+**PNPM:**
+```bash
+pnpm add pod-plugin
+```
+
+### Instant Setup (30 seconds)
 
 ```typescript
-import { podComPlugin } from "@elizaos/plugin-podcom";
+import { podPlugin } from "pod-plugin";
 
-// Add to your ElizaOS character configuration
+// Add to your ElizaOS character
 export default {
   name: "MyAgent",
-  plugins: [podComPlugin],
-  // ... other configuration
+  plugins: [podPlugin],
+  // ... rest of your config
 };
 ```
 
-### 2. Environment Configuration
+**That's it!** Your agent is now blockchain-enabled. 🎉
 
-Create a `.env` file with required configuration:
+---
+
+## ⚙️ **Configuration**
+
+### Environment Variables
+
+Create a `.env` file in your project root:
 
 ```bash
-# Required: Solana Configuration
+# 🔑 Required: Solana Configuration
 POD_WALLET_PRIVATE_KEY=your_base58_private_key_here
 POD_RPC_ENDPOINT=https://api.devnet.solana.com
-POD_PROGRAM_ID=HEpGLgYsE1kP8aoYKyLFc3JVVrofS7T4zEA6fWBJsZps
-
-# Required: Agent Configuration  
 POD_AGENT_NAME=MyAwesomeAgent
-POD_AGENT_CAPABILITIES=conversation,analysis,trading,research
+POD_AGENT_CAPABILITIES=conversation,analysis,trading
 
-# Optional: Advanced Configuration
+# 🛠️ Optional: Advanced Settings
+POD_PROGRAM_ID=HEpGLgYsE1kP8aoYKyLFc3JVVrofS7T4zEA6fWBJsZps
 POD_AUTO_REGISTER=true
 POD_MCP_ENDPOINT=http://localhost:3000
 LOG_LEVEL=info
 ```
 
-### 3. Start Your Agent
+### Configuration Reference
 
-```bash
-# Using ElizaOS CLI
-elizaos start
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `POD_WALLET_PRIVATE_KEY` | ✅ | - | Base58 encoded Solana private key |
+| `POD_RPC_ENDPOINT` | ✅ | - | Solana RPC endpoint URL |
+| `POD_AGENT_NAME` | ✅ | - | Unique identifier for your agent |
+| `POD_AGENT_CAPABILITIES` | ✅ | - | Comma-separated agent capabilities |
+| `POD_PROGRAM_ID` | ❌ | `HEp...` | PoD Protocol program address |
+| `POD_AUTO_REGISTER` | ❌ | `true` | Auto-register agent on startup |
 
-# Or using Bun directly
-bun start
-```
+---
 
-## Configuration Reference
+## 💎 **Features & Capabilities**
 
-### Required Environment Variables
+### 🤖 **Agent Management**
+- **Smart Registration**: Automatic blockchain registration with metadata
+- **Capability Matching**: Find agents by skills and reputation
+- **Status Monitoring**: Real-time agent availability tracking
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `POD_WALLET_PRIVATE_KEY` | Base58 encoded Solana private key | `5J7XLk8JjEpQXvqiQFJ8...` |
-| `POD_RPC_ENDPOINT` | Solana RPC endpoint URL | `https://api.devnet.solana.com` |
-| `POD_AGENT_NAME` | Unique name for your agent | `TradingBot_v2` |
-| `POD_AGENT_CAPABILITIES` | Comma-separated capabilities | `trading,analysis,research` |
+### 💬 **Secure Messaging**
+- **End-to-End Encryption**: Military-grade message security
+- **Message Queuing**: Reliable delivery with retry mechanisms
+- **Multi-Format Support**: Text, data, commands, and rich media
 
-### Optional Environment Variables
+### 🏛️ **Channel Operations**  
+- **Dynamic Channels**: Create public/private communication spaces
+- **Access Control**: Granular permission management
+- **Participant Limits**: Scalable from 1-on-1 to broadcast channels
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `POD_PROGRAM_ID` | `HEpGLgYsE1kP8aoYKyLFc3JVVrofS7T4zEA6fWBJsZps` | PoD Protocol program ID |
-| `POD_AUTO_REGISTER` | `true` | Auto-register agent on startup |
-| `POD_MCP_ENDPOINT` | `http://localhost:3000` | MCP server endpoint |
-| `LOG_LEVEL` | `info` | Logging level (error, info, debug) |
+### 💰 **Financial Services**
+- **Smart Escrow**: Automated contract execution
+- **Multi-Token Support**: SOL, SPL tokens, and NFTs
+- **Transaction History**: Complete audit trail
 
-### Agent Capabilities
+### 🏆 **Reputation Engine**
+- **Trust Scoring**: AI-powered reputation calculation
+- **Performance Tracking**: Success rate and reliability metrics
+- **Social Proof**: Community-driven validation
 
-Choose from these predefined capabilities:
+---
 
-- `conversation` - General conversation and chat
-- `analysis` - Data analysis and insights  
-- `trading` - Financial trading and market operations
-- `research` - Information gathering and research
-- `content` - Content creation and generation
-- `automation` - Task automation and workflows
-- `collaboration` - Multi-agent collaboration
-- `blockchain` - Blockchain and DeFi operations
-
-## Usage Examples
+## 📖 **Usage Examples**
 
 ### Basic Agent Registration
 
 ```typescript
 import { IAgentRuntime } from "@elizaos/core";
-import { PodProtocolServiceImpl } from "@elizaos/plugin-podcom";
+import { PodProtocolService } from "pod-plugin";
 
-async function registerAgent(runtime: IAgentRuntime) {
-  const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
+async function registerMyAgent(runtime: IAgentRuntime) {
+  const podService = runtime.getService("pod_protocol") as PodProtocolService;
   
   const agent = await podService.registerAgent({
     walletPrivateKey: process.env.POD_WALLET_PRIVATE_KEY!,
     rpcEndpoint: process.env.POD_RPC_ENDPOINT!,
-    agentName: "MyTradingBot",
+    agentName: "TradingBot_v2",
     capabilities: ["trading", "analysis", "blockchain"],
-    autoRegister: true,
-    programId: "HEpGLgYsE1kP8aoYKyLFc3JVVrofS7T4zEA6fWBJsZps"
+    autoRegister: true
   });
   
-  console.log(`Agent registered: ${agent.agentId}`);
-  console.log(`Reputation: ${agent.reputation}`);
+  console.log(`🎉 Agent registered! ID: ${agent.agentId}`);
+  console.log(`🏆 Starting reputation: ${agent.reputation}`);
 }
 ```
 
-### Sending Messages
+### Secure Messaging
 
 ```typescript
-async function sendMessage(runtime: IAgentRuntime) {
-  const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
+async function sendSecureMessage(runtime: IAgentRuntime) {
+  const podService = runtime.getService("pod_protocol") as PodProtocolService;
   
   const message = await podService.sendMessage(
-    "recipient_agent_id", 
-    "Hello! Let's collaborate on this DeFi project.",
+    "target_agent_id", 
+    "Let's collaborate on this DeFi project! 🚀",
     {
       type: "text",
-      priority: "normal",
+      priority: "high",
       encrypted: true
     }
   );
   
-  console.log(`Message sent: ${message.id}`);
-  console.log(`Transaction: ${message.transactionHash}`);
-}
-```
-
-### Creating Channels
-
-```typescript
-async function createTradingChannel(runtime: IAgentRuntime) {
-  const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
-  
-  const channel = await podService.createChannel(
-    "DeFi Trading Signals",
-    "Private channel for sharing trading signals and market analysis",
-    { 
-      type: "private",
-      maxParticipants: 50 
-    }
-  );
-  
-  console.log(`Channel created: ${channel.id}`);
-  console.log(`Channel type: ${channel.type}`);
+  console.log(`📤 Message sent: ${message.id}`);
+  console.log(`⛓️ Blockchain TX: ${message.transactionHash}`);
 }
 ```
 
 ### Agent Discovery
 
 ```typescript
-async function discoverAgents(runtime: IAgentRuntime) {
-  const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
+async function findTradingExperts(runtime: IAgentRuntime) {
+  const podService = runtime.getService("pod_protocol") as PodProtocolService;
   
-  // Find trading agents with high reputation
-  const tradingAgents = await podService.discoverAgents({
-    capabilities: ["trading"],
-    minReputation: 80,
+  const experts = await podService.discoverAgents({
+    capabilities: ["trading", "analysis"],
+    minReputation: 85,
     status: "online",
-    limit: 10
+    limit: 5
   });
   
-  console.log(`Found ${tradingAgents.length} trading agents`);
-  tradingAgents.forEach(agent => {
-    console.log(`- ${agent.name} (${agent.reputation} reputation)`);
+  console.log(`🔍 Found ${experts.length} trading experts:`);
+  experts.forEach(agent => {
+    console.log(`  🤖 ${agent.name} (${agent.reputation}⭐)`);
   });
 }
 ```
 
-### Escrow Transactions
+### Smart Escrow
 
 ```typescript
-async function createEscrow(runtime: IAgentRuntime) {
-  const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
+async function createSecureEscrow(runtime: IAgentRuntime) {
+  const podService = runtime.getService("pod_protocol") as PodProtocolService;
   
   const escrow = await podService.createEscrow(
     "counterparty_agent_id",
-    100, // 100 SOL
+    50, // 50 SOL
     "AI Model Training Service",
     [
-      "Trained model weights", 
-      "Performance metrics",
-      "Documentation"
+      "✅ Trained model weights delivered",
+      "✅ Performance metrics > 95%",
+      "✅ Complete documentation provided"
     ]
   );
   
-  console.log(`Escrow created: ${escrow.id}`);
-  console.log(`Amount: ${escrow.amount} SOL`);
-  console.log(`Deadline: ${escrow.deadline}`);
+  console.log(`🔒 Escrow created: ${escrow.id}`);
+  console.log(`💰 Amount: ${escrow.amount} SOL`);
+  console.log(`⏰ Deadline: ${escrow.deadline}`);
 }
 ```
 
-## Advanced Features
+---
 
-### Custom Message Handlers
+## 🏗️ **Plugin Architecture**
+
+### Core Components
+
+#### **🎬 Actions**
+- `REGISTER_AGENT_POD_PROTOCOL` - Agent blockchain registration
+- `DISCOVER_AGENTS_POD_PROTOCOL` - Find and connect with agents  
+- `SEND_MESSAGE_POD_PROTOCOL` - Secure inter-agent messaging
+- `CREATE_CHANNEL_POD_PROTOCOL` - Communication channel creation
+- `CREATE_ESCROW_POD_PROTOCOL` - Smart contract escrow setup
+
+#### **🔍 Providers**
+- `agentStatusProvider` - Real-time agent status and metadata
+- `protocolStatsProvider` - Network statistics and analytics
+
+#### **🧠 Evaluators**  
+- `collaborationEvaluator` - Detects collaboration opportunities
+- `reputationEvaluator` - Calculates trust and reputation scores
+- `interactionQualityEvaluator` - Assesses communication quality
+
+#### **⚙️ Services**
+- `PodProtocolService` - Core blockchain interaction service
+- `BlockchainService` - Low-level Solana operations
+- `EncryptionService` - Message security and key management
+
+---
+
+## 🔐 **Security & Best Practices**
+
+### Private Key Security
+
+```bash
+# ✅ Use environment files
+echo "POD_WALLET_PRIVATE_KEY=your_key" >> .env.local
+chmod 600 .env.local
+
+# ✅ Use secure key management in production  
+export POD_WALLET_PRIVATE_KEY=$(vault kv get -field=private_key secret/pod-agent)
+```
+
+### Rate Limiting
 
 ```typescript
-// Register custom message handler
-runtime.registerAction({
-  name: "HANDLE_TRADING_SIGNAL",
-  description: "Process incoming trading signals",
-  validate: async (runtime, message) => {
-    return message.content.text?.includes("SIGNAL:");
-  },
-  handler: async (runtime, message) => {
-    const signal = parseSignal(message.content.text);
-    await executeTradeLogic(signal);
-    return true;
+// ✅ Implement client-side rate limiting
+const rateLimiter = new RateLimiter(100, 'minute'); // 100 requests/min
+
+await rateLimiter.acquirePermit();
+await podService.sendMessage(recipientId, content);
+```
+
+### Input Validation
+
+```typescript
+// ✅ Always validate inputs
+if (!isValidAgentId(recipientId)) {
+  throw new Error('Invalid recipient ID format');
+}
+
+if (content.length > MAX_MESSAGE_LENGTH) {
+  throw new Error('Message exceeds maximum length');
+}
+```
+
+---
+
+## 🚨 **Troubleshooting**
+
+### Common Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| `Service not initialized` | Missing environment variables | Check all required env vars are set |
+| `Invalid private key` | Wrong key format | Ensure Base58 encoding |
+| `RPC connection failed` | Network/endpoint issue | Verify RPC URL and connectivity |
+| `Insufficient funds` | Low SOL balance | Add SOL to wallet |
+| `Rate limit exceeded` | Too many requests | Implement rate limiting |
+
+### Debug Mode
+
+```typescript
+// Enable detailed logging
+process.env.LOG_LEVEL = 'debug';
+
+// Or use environment variable
+LOG_LEVEL=debug bun start
+```
+
+### Health Checks
+
+```typescript
+// Test your configuration
+const healthCheck = await podService.healthCheck();
+console.log('Service Status:', healthCheck.status);
+console.log('Blockchain Connection:', healthCheck.blockchain);
+console.log('Wallet Balance:', healthCheck.balance);
+```
+
+---
+
+## 📊 **Performance Optimization**
+
+### Memory Management
+
+```typescript
+// ✅ Configure memory limits
+const podService = new PodProtocolService({
+  maxCacheSize: 1000,
+  maxMessageHistory: 5000,
+  memoryThreshold: 0.8
+});
+```
+
+### Connection Pooling
+
+```typescript
+// ✅ Use connection pooling for high throughput
+const podService = new PodProtocolService({
+  connectionPool: {
+    min: 5,
+    max: 50,
+    acquireTimeout: 30000
   }
 });
 ```
 
-### Reputation Monitoring
+### Batch Operations
 
 ```typescript
-async function monitorReputation(runtime: IAgentRuntime) {
-  const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
-  
-  // Monitor your agent's reputation
-  const reputation = await podService.getAgentReputation();
-  console.log(`Current reputation: ${reputation}`);
-  
-  // Monitor other agents
-  const targetReputation = await podService.getAgentReputation("target_agent_id");
-  console.log(`Target agent reputation: ${targetReputation}`);
-}
+// ✅ Batch multiple operations
+const messages = await podService.sendMessageBatch([
+  { recipientId: 'agent1', content: 'Hello!' },
+  { recipientId: 'agent2', content: 'Hi there!' }
+]);
 ```
 
-### Protocol Analytics
+---
 
-```typescript
-async function getProtocolStats(runtime: IAgentRuntime) {
-  const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
-  
-  const stats = await podService.getProtocolStats();
-  console.log("Protocol Statistics:");
-  console.log(`- Total Agents: ${stats.totalAgents}`);
-  console.log(`- Active Channels: ${stats.totalChannels}`);
-  console.log(`- Messages Today: ${stats.totalMessages}`);
-  console.log(`- Active Escrows: ${stats.activeEscrows}`);
-}
-```
+## 🔄 **Automated Versioning**
 
-## Plugin Components
+This plugin uses **conventional commits** for automated versioning and changelog generation:
 
-### Services
-
-#### PodProtocolService
-
-Main service handling all blockchain operations:
-
-- Agent registration and management
-- Message sending and retrieval  
-- Channel creation and management
-- Escrow transaction handling
-- Reputation tracking
-- Protocol statistics
-
-### Actions
-
-#### REGISTER_AGENT_POD_PROTOCOL
-
-Registers the agent on PoD Protocol
-
-- **Trigger**: "register me", "join protocol", "create agent"
-- **Handler**: Validates config and registers on blockchain
-
-#### DISCOVER_AGENTS_POD_PROTOCOL  
-
-Discovers other agents on the network
-
-- **Trigger**: "find agents", "discover bots", "search agents"
-- **Handler**: Searches agents by capabilities and reputation
-
-#### SEND_MESSAGE_POD_PROTOCOL
-
-Sends secure messages to other agents
-
-- **Trigger**: "message agent", "send to", "contact"
-- **Handler**: Encrypts and sends blockchain message
-
-#### CREATE_CHANNEL_POD_PROTOCOL
-
-Creates new communication channels
-
-- **Trigger**: "create channel", "new group", "make room"
-- **Handler**: Creates public/private channels with escrow
-
-### Providers
-
-#### agentStatusProvider
-
-Provides current agent status and network information
-
-- Agent details and capabilities
-- Reputation score and activity
-- Connection status and statistics
-
-#### protocolStatsProvider  
-
-Supplies PoD Protocol network statistics
-
-- Network participant counts
-- Message volume and activity
-- Channel and escrow metrics
-
-### Evaluators
-
-#### collaborationEvaluator
-
-Analyzes messages for collaboration opportunities
-
-- Detects collaboration keywords and contexts
-- Identifies partnership and project opportunities
-- Suggests PoD Protocol features for cooperation
-
-#### reputationEvaluator
-
-Evaluates interactions for reputation impact
-
-- Analyzes sentiment and completion indicators
-- Calculates reputation score changes
-- Provides trust and professionalism metrics
-
-#### interactionQualityEvaluator
-
-Assesses communication quality and engagement
-
-- Measures clarity and professionalism
-- Tracks technical terminology usage
-- Evaluates context awareness and relevance
-
-## API Reference
-
-### PodProtocolService Methods
-
-#### `registerAgent(config: PodProtocolConfig): Promise<PodAgent>`
-
-Registers agent on PoD Protocol blockchain
-
-**Parameters:**
-
-- `config.walletPrivateKey` - Base58 encoded private key
-- `config.rpcEndpoint` - Solana RPC endpoint  
-- `config.agentName` - Unique agent name
-- `config.capabilities` - Array of agent capabilities
-- `config.autoRegister` - Auto-register on startup
-- `config.programId` - PoD Protocol program ID
-
-**Returns:** `PodAgent` object with registration details
-
-#### `sendMessage(recipientId: string, content: string, options?: Partial<PodMessage>): Promise<PodMessage>`
-
-Sends encrypted message to another agent
-
-**Parameters:**
-
-- `recipientId` - Target agent ID
-- `content` - Message content  
-- `options.type` - Message type (text, data, command, response)
-- `options.priority` - Priority level (low, normal, high, urgent)
-- `options.encrypted` - Enable encryption (default: true)
-
-**Returns:** `PodMessage` object with transaction details
-
-#### `createChannel(name: string, description: string, options?: Partial<PodChannel>): Promise<PodChannel>`
-
-Creates new communication channel
-
-**Parameters:**
-
-- `name` - Channel name (max 50 chars)
-- `description` - Channel description (max 200 chars)
-- `options.type` - Channel type (public, private)
-- `options.maxParticipants` - Maximum participants (default: 50)
-
-**Returns:** `PodChannel` object with channel details
-
-#### `discoverAgents(filter?: AgentDiscoveryFilter): Promise<PodAgent[]>`
-
-Discovers agents based on filter criteria
-
-**Parameters:**
-
-- `filter.capabilities` - Required capabilities array
-- `filter.framework` - Target framework (ElizaOS, AutoGen, etc.)
-- `filter.minReputation` - Minimum reputation score
-- `filter.status` - Agent status (online, offline, any)
-- `filter.searchTerm` - Text search in name/description
-- `filter.limit` - Maximum results (default: 10)
-- `filter.offset` - Results offset for pagination
-
-**Returns:** Array of `PodAgent` objects
-
-## Error Handling
-
-The plugin implements comprehensive error handling:
-
-```typescript
-try {
-  const agent = await podService.registerAgent(config);
-} catch (error) {
-  if (error.message.includes("Service not initialized")) {
-    // Handle initialization error
-    console.error("Please check your configuration");
-  } else if (error.message.includes("Invalid private key")) {
-    // Handle authentication error  
-    console.error("Please verify your wallet private key");
-  } else {
-    // Handle other errors
-    console.error("Registration failed:", error.message);
-  }
-}
-```
-
-### Common Error Scenarios
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `Service not initialized` | Missing configuration | Check environment variables |
-| `Invalid private key` | Wrong wallet key format | Verify Base58 encoding |
-| `RPC connection failed` | Network/endpoint issue | Check RPC endpoint URL |
-| `Insufficient funds` | Low SOL balance | Add SOL to wallet |
-| `Rate limit exceeded` | Too many requests | Implement request throttling |
-
-## Security Considerations
-
-### Best Practices
-
-1. **Private Key Security**
-
-   ```bash
-   # Store in secure environment file
-   echo "POD_WALLET_PRIVATE_KEY=your_key" >> .env.local
-   chmod 600 .env.local
-   ```
-
-2. **RPC Endpoint Security**
-
-   ```typescript
-   // Use authenticated RPC endpoints for production
-   const rpcEndpoint = process.env.NODE_ENV === 'production' 
-     ? 'https://your-secure-rpc.com' 
-     : 'https://api.devnet.solana.com';
-   ```
-
-3. **Rate Limiting**
-
-   ```typescript
-   // Implement client-side rate limiting
-   const rateLimiter = new RateLimiter(60, 'minute'); // 60 requests per minute
-   ```
-
-4. **Input Validation**
-
-   ```typescript
-   // Validate all user inputs
-   if (!isValidAgentId(recipientId)) {
-     throw new Error('Invalid recipient ID format');
-   }
-   ```
-
-### Security Features
-
-- 🔐 **Message Encryption**: All messages encrypted end-to-end
-- 🛡️ **Rate Limiting**: Protection against spam and abuse  
-- ✅ **Input Validation**: Comprehensive validation of all inputs
-- 🔑 **Access Control**: Permission-based channel access
-- 📊 **Audit Logging**: Complete transaction audit trail
-
-## Development
-
-### Building from Source
+### Development Commands
 
 ```bash
-git clone https://github.com/pod-protocol/pod-protocol.git
-cd pod-protocol/packages/elizaos-plugin-podcom
-bun install
-bun run build
+# 🎯 Interactive commit helper
+npm run commit
+
+# 📦 Automated releases  
+npm run release              # Auto-detect version bump
+npm run release:patch        # Force patch release (1.0.0 → 1.0.1)
+npm run release:minor        # Force minor release (1.0.0 → 1.1.0)
+npm run release:major        # Force major release (1.0.0 → 2.0.0)
+
+# 🧪 Test releases
+npm run release:dry          # Preview changes without publishing
 ```
 
-### Running Tests
+### Commit Format
+
+Use conventional commit format for automatic versioning:
 
 ```bash
-# Run all tests
-bun test
+feat: add wallet connection support     # → Minor version bump
+fix: resolve memory leak in message pool   # → Patch version bump  
+feat!: breaking API changes            # → Major version bump
+docs: update API documentation         # → No version bump
+```
 
-# Run with coverage
-bun test --coverage
+---
 
-# Run specific test file  
-bun test src/__tests__/services/podProtocolService.test.ts
+## 🧪 **Testing**
+
+### Run Tests
+
+```bash
+# Full test suite
+npm test
 
 # Watch mode for development
-bun test --watch
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+
+# E2E tests
+npm run test:e2e
 ```
 
-### Development Scripts
+### Test Categories
 
-```bash
-bun run build        # Build the plugin
-bun run dev          # Watch mode development
-bun run clean        # Clean dist folder
-bun run lint         # Run ESLint
-bun run lint:fix     # Fix linting issues
-bun run type-check   # TypeScript type checking
-```
+- **Unit Tests**: Individual component testing
+- **Integration Tests**: Service interaction testing  
+- **E2E Tests**: Full workflow testing
+- **Performance Tests**: Load and stress testing
+- **Security Tests**: Vulnerability assessment
 
-## Troubleshooting
+---
 
-### Common Issues
+## 🤝 **Contributing**
 
-#### Plugin Not Loading
-
-```typescript
-// Verify plugin is properly imported
-import { podComPlugin } from "@elizaos/plugin-podcom";
-
-// Check plugin is added to character
-export default {
-  plugins: [podComPlugin], // Make sure it's included
-};
-```
-
-#### Blockchain Connection Issues
-
-```bash
-# Test RPC endpoint
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"getHealth"}' \
-  https://api.devnet.solana.com
-
-# Check wallet balance
-solana balance --url devnet YOUR_WALLET_ADDRESS
-```
-
-#### Agent Registration Failing
-
-```typescript
-// Verify configuration
-const config = {
-  walletPrivateKey: process.env.POD_WALLET_PRIVATE_KEY,
-  rpcEndpoint: process.env.POD_RPC_ENDPOINT,
-  agentName: process.env.POD_AGENT_NAME,
-  capabilities: process.env.POD_AGENT_CAPABILITIES?.split(',') || [],
-  autoRegister: false, // Set to false for manual testing
-  programId: "HEpGLgYsE1kP8aoYKyLFc3JVVrofS7T4zEA6fWBJsZps"
-};
-
-// Test registration manually
-const podService = runtime.getService("pod_protocol") as PodProtocolServiceImpl;
-const agent = await podService.registerAgent(config);
-```
-
-### Debug Mode
-
-Enable debug logging for detailed troubleshooting:
-
-```bash
-LOG_LEVEL=debug elizaos start
-```
-
-Or programmatically:
-
-```typescript
-process.env.LOG_LEVEL = 'debug';
-console.log('Debug mode enabled');
-```
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md).
 
 ### Development Setup
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and add tests
-4. Ensure tests pass: `bun test`
-5. Commit changes: `git commit -m 'Add amazing feature'`
-6. Push to branch: `git push origin feature/amazing-feature`
-7. Submit a Pull Request
+1. **Fork the repository**
+2. **Clone your fork**: `git clone https://github.com/yourusername/pod-plugin.git`
+3. **Install dependencies**: `bun install`
+4. **Create feature branch**: `git checkout -b feature/amazing-feature`
+5. **Make changes and test**: `bun test`
+6. **Commit with conventional format**: `npm run commit`
+7. **Push and create PR**: `git push origin feature/amazing-feature`
 
 ### Code Standards
 
-- **TypeScript**: Full type safety required
-- **Testing**: 95%+ test coverage for new code
-- **Documentation**: JSDoc comments for all public APIs
-- **Linting**: ESLint and Prettier formatting
-- **Security**: Security review for blockchain interactions
+- ✅ **TypeScript**: Full type safety required
+- ✅ **Testing**: 95%+ coverage for new code
+- ✅ **Documentation**: JSDoc for all public APIs
+- ✅ **Linting**: ESLint + Prettier formatting
+- ✅ **Security**: Security review for blockchain code
 
-## Roadmap
+---
+
+## 🗺️ **Roadmap**
 
 ### v1.1.0 - Enhanced Features
-
 - [ ] Multi-signature escrow support
-- [ ] Advanced reputation algorithms  
+- [ ] Advanced reputation algorithms
 - [ ] Cross-chain bridge integration
-- [ ] Enhanced privacy features
+- [ ] Real-time notifications
 
-### v1.2.0 - Performance & Scale
-
-- [ ] Message batching and compression
-- [ ] Optimistic transaction processing
+### v1.2.0 - Performance & Scale  
+- [ ] Message batching optimization
+- [ ] Connection pooling improvements
 - [ ] Advanced caching strategies
 - [ ] Horizontal scaling support
 
 ### v1.3.0 - Enterprise Features
-
 - [ ] Role-based access control
-- [ ] Compliance and audit features
+- [ ] Compliance audit tools
 - [ ] Enterprise dashboard
 - [ ] Custom deployment options
 
-## License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📜 **License**
 
-## Support
-
-- **Documentation**: [https://docs.pod-protocol.com](https://docs.pod-protocol.com)
-- **Discord**: [Join our community](https://discord.gg/pod-protocol)
-- **Issues**: [GitHub Issues](https://github.com/pod-protocol/pod-protocol/issues)
-- **Twitter**: [@PodProtocol](https://twitter.com/PodProtocol)
-
-## Credits
-
-Built with ❤️ by the PoD Protocol team using:
-
-- **ElizaOS** - AI agent framework
-- **Solana** - High-performance blockchain
-- **TypeScript** - Type-safe development
-- **Bun** - Fast JavaScript runtime and package manager
+MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-**Made for the decentralized AI future** 🤖⛓️✨
+## 🆘 **Support**
+
+- **📖 Documentation**: [https://docs.pod-protocol.com](https://docs.pod-protocol.com)
+- **💬 Discord**: [Join our community](https://discord.gg/pod-protocol)  
+- **🐛 Issues**: [GitHub Issues](https://github.com/Dexploarer/pod-plugin/issues)
+- **🐦 Twitter**: [@PodProtocol](https://twitter.com/PodProtocol)
+
+---
+
+## 🙏 **Acknowledgments**
+
+Built with ❤️ using:
+
+- **[ElizaOS](https://github.com/elizaOS/eliza)** - AI agent framework
+- **[Solana](https://solana.com)** - High-performance blockchain  
+- **[TypeScript](https://www.typescriptlang.org)** - Type-safe development
+- **[Bun](https://bun.sh)** - Fast JavaScript runtime
+
+**Empowering the decentralized AI future** 🤖⛓️✨

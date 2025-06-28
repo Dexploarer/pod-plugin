@@ -1,4 +1,4 @@
-import { Service, composeContext, generateObject, ModelClass } from '@elizaos/core';
+import { Service } from '@elizaos/core';
 import { Connection, Transaction, SystemProgram, PublicKey, Keypair } from '@solana/web3.js';
 import bs58 from 'bs58';
 
@@ -105,7 +105,7 @@ function isValidUrl(str) {
 __name(isValidUrl, "isValidUrl");
 function isValidBase58(str) {
   const base58Regex = /^[1-9A-HJ-NP-Za-km-z]+$/;
-  return base58Regex.test(str) && str.length >= 32 && str.length <= 44;
+  return base58Regex.test(str) && str.length >= 32 && str.length <= 88;
 }
 __name(isValidBase58, "isValidBase58");
 function getConfigSafely(runtime) {
@@ -1298,7 +1298,7 @@ var discoverAgentsAction = {
     "LIST_AGENTS",
     "SHOW_AGENTS"
   ],
-  validate: /* @__PURE__ */ __name(async (runtime, message) => {
+  validate: /* @__PURE__ */ __name(async (runtime, _message) => {
     const validation = validateConfigForRuntime(runtime);
     if (!validation.isValid) {
       console.error(`PoD Protocol configuration invalid: ${validation.errors.join(", ")}`);
@@ -1306,7 +1306,7 @@ var discoverAgentsAction = {
     }
     return true;
   }, "validate"),
-  handler: /* @__PURE__ */ __name(async (runtime, message, state, _options, callback) => {
+  handler: /* @__PURE__ */ __name(async (runtime, message, _state, _options, callback) => {
     try {
       console.info("Starting agent discovery on PoD Protocol...");
       const podService = runtime.getService("pod_protocol");
@@ -1400,6 +1400,8 @@ ${error instanceof Error ? error.message : String(error)}`
     ]
   ]
 };
+
+// src/actions/sendMessage.ts
 var sendMessageAction = {
   name: "SEND_MESSAGE_POD_PROTOCOL",
   similes: [
@@ -1414,48 +1416,54 @@ var sendMessageAction = {
   validate: /* @__PURE__ */ __name(async (runtime, message) => {
     const validation = validateConfigForRuntime(runtime);
     if (!validation.isValid) {
-      runtime.getLogger?.()?.error(`PoD Protocol configuration invalid: ${validation.errors.join(", ")}`);
+      console.error(`PoD Protocol configuration invalid: ${validation.errors.join(", ")}`);
       return false;
     }
     return true;
   }, "validate"),
   handler: /* @__PURE__ */ __name(async (runtime, message, state, _options, callback) => {
     try {
-      runtime.getLogger?.()?.info("Processing message send request...");
+      console.log("Processing message send request...");
       const podService = runtime.getService(
         PodProtocolServiceImpl.serviceType
       );
       if (!podService) {
-        await callback({
-          text: "\u274C PoD Protocol service not available. Please ensure the plugin is properly configured and registered.",
-          content: {
-            text: "PoD Protocol service not initialized",
-            error: "Service not found"
-          }
-        });
+        if (callback) {
+          await callback({
+            text: "\u274C PoD Protocol service not available. Please ensure the plugin is properly configured and registered.",
+            content: {
+              text: "PoD Protocol service not initialized",
+              error: "Service not found"
+            }
+          });
+        }
         return false;
       }
       const currentState = podService.getState();
       if (!currentState?.isRegistered || !currentState.agent) {
-        await callback({
-          text: "\u274C You need to register on PoD Protocol first. Use 'register on PoD Protocol' to get started.",
-          content: {
-            text: "Agent not registered",
-            error: "Registration required"
-          }
-        });
+        if (callback) {
+          await callback({
+            text: "\u274C You need to register on PoD Protocol first. Use 'register on PoD Protocol' to get started.",
+            content: {
+              text: "Agent not registered",
+              error: "Registration required"
+            }
+          });
+        }
         return false;
       }
-      const messageText = message.content.text;
+      const messageText = message.content.text || "";
       const recipientMatch = messageText.match(/(?:to|send to|message|contact)\s+([a-zA-Z0-9_-]+)/i);
       if (!recipientMatch) {
-        await callback({
-          text: "\u274C **Missing recipient information**\n\nPlease specify which agent to message. Examples:\n- 'Send message to trading_bot_001'\n- 'Message research_pro_v2 about collaboration'\n- 'Contact content_creator_x'",
-          content: {
-            text: "Missing recipient",
-            error: "No recipient specified"
-          }
-        });
+        if (callback) {
+          await callback({
+            text: "\u274C **Missing recipient information**\n\nPlease specify which agent to message. Examples:\n- 'Send message to trading_bot_001'\n- 'Message research_pro_v2 about collaboration'\n- 'Contact content_creator_x'",
+            content: {
+              text: "Missing recipient",
+              error: "No recipient specified"
+            }
+          });
+        }
         return false;
       }
       const recipientId = recipientMatch[1];
@@ -1472,13 +1480,15 @@ var sendMessageAction = {
       }
       messageContent = messageContent.replace(/^(about|saying|that|with)/i, "").trim();
       if (!messageContent || messageContent.length < 10) {
-        await callback({
-          text: "\u274C **Message content too short**\n\nPlease provide a meaningful message to send. Example:\n'Send message to trading_bot_001 asking for market analysis'",
-          content: {
-            text: "Message content too short",
-            error: "Insufficient content"
-          }
-        });
+        if (callback) {
+          await callback({
+            text: "\u274C **Message content too short**\n\nPlease provide a meaningful message to send. Example:\n'Send message to trading_bot_001 asking for market analysis'",
+            content: {
+              text: "Message content too short",
+              error: "Insufficient content"
+            }
+          });
+        }
         return false;
       }
       const contentLower = messageContent.toLowerCase();
@@ -1494,41 +1504,22 @@ var sendMessageAction = {
       } else if (contentLower.includes("command") || contentLower.includes("execute")) {
         messageType = "command";
       }
+      if (!recipientId) {
+        if (callback) {
+          await callback({
+            text: "\u274C **Invalid recipient ID**\n\nPlease provide a valid recipient agent ID.",
+            content: {
+              text: "Invalid recipient",
+              error: "Recipient ID is required"
+            }
+          });
+        }
+        return false;
+      }
       const sentMessage = await podService.sendMessage(recipientId, messageContent, {
         type: messageType,
         priority,
         encrypted: true
-      });
-      const messageContext = composeContext({
-        state,
-        template: `
-You are an AI agent that has just sent a secure blockchain message to another AI agent.
-
-Message Details:
-- Recipient: {{recipientId}}
-- Content: {{messageContent}}
-- Type: {{messageType}}
-- Priority: {{priority}}
-- Message ID: {{messageId}}
-- Status: {{status}}
-- Encrypted: {{encrypted}}
-
-Respond with confirmation of the message being sent. Be enthusiastic about the cross-agent communication capability. Mention that the message is secured by blockchain technology.
-
-Keep the response conversational and highlight the benefits of decentralized agent communication.
-        `,
-        recipientId,
-        messageContent: messageContent.substring(0, 100) + (messageContent.length > 100 ? "..." : ""),
-        messageType: sentMessage.type,
-        priority: sentMessage.priority,
-        messageId: sentMessage.id,
-        status: sentMessage.status,
-        encrypted: sentMessage.encrypted
-      });
-      const response = await generateObject({
-        runtime,
-        context: messageContext,
-        modelClass: ModelClass.SMALL
       });
       const defaultResponse = `\u{1F4E4} **Message sent successfully!**
 
@@ -1547,47 +1538,51 @@ Keep the response conversational and highlight the benefits of decentralized age
 ${sentMessage.transactionHash ? `**Transaction Hash:** ${sentMessage.transactionHash}` : ""}
 
 The message has been delivered to the agent's blockchain inbox. They will receive it when they next check their messages!`;
-      await callback({
-        text: response || defaultResponse,
-        content: {
-          text: "Message sent successfully",
-          message: sentMessage,
-          recipient: recipientId,
-          capabilities: [
-            "check_delivery_status",
-            "send_follow_up",
-            "view_conversation_history"
-          ]
-        }
-      });
-      runtime.getLogger?.()?.info(`Message sent to ${recipientId}: ${sentMessage.id}`);
+      if (callback) {
+        await callback({
+          text: defaultResponse,
+          content: {
+            text: "Message sent successfully",
+            message: sentMessage,
+            recipient: recipientId,
+            capabilities: [
+              "check_delivery_status",
+              "send_follow_up",
+              "view_conversation_history"
+            ]
+          }
+        });
+      }
+      console.log(`Message sent to ${recipientId}: ${sentMessage.id}`);
       return true;
     } catch (error) {
-      runtime.getLogger?.()?.error(`Send message failed: ${error instanceof Error ? error.message : String(error)}`);
-      await callback({
-        text: `\u274C **Failed to send message**
+      console.error(`Send message failed: ${error instanceof Error ? error.message : String(error)}`);
+      if (callback) {
+        await callback({
+          text: `\u274C **Failed to send message**
 
 Error: ${error instanceof Error ? error.message : String(error)}
 
 Please check the recipient ID and try again.`,
-        content: {
-          text: "Send message failed",
-          error: error instanceof Error ? error.message : String(error)
-        }
-      });
+          content: {
+            text: "Send message failed",
+            error: error instanceof Error ? error.message : String(error)
+          }
+        });
+      }
       return false;
     }
   }, "handler"),
   examples: [
     [
       {
-        user: "{{user1}}",
+        name: "{{user1}}",
         content: {
           text: "Send message to trading_bot_001 asking for BTC analysis"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "{{agentName}}",
         content: {
           text: "I'll send a message to trading_bot_001 asking for BTC analysis via the PoD Protocol blockchain network.",
           action: "SEND_MESSAGE_POD_PROTOCOL"
@@ -1596,13 +1591,13 @@ Please check the recipient ID and try again.`,
     ],
     [
       {
-        user: "{{user1}}",
+        name: "{{user1}}",
         content: {
           text: "Message research_pro_v2 about collaboration opportunities"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "{{agentName}}",
         content: {
           text: "Sending a collaboration message to research_pro_v2 through the secure blockchain messaging system.",
           action: "SEND_MESSAGE_POD_PROTOCOL"
@@ -1611,13 +1606,13 @@ Please check the recipient ID and try again.`,
     ],
     [
       {
-        user: "{{user1}}",
+        name: "{{user1}}",
         content: {
           text: "Contact content_creator_x with urgent project proposal"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "{{agentName}}",
         content: {
           text: "I'll send an urgent message to content_creator_x about your project proposal via PoD Protocol.",
           action: "SEND_MESSAGE_POD_PROTOCOL"
@@ -2108,7 +2103,7 @@ var joinChannel = {
         channelId = channelIdMatch[0];
       } else {
         const quotedNameMatch = messageText.match(/["'](.*?)["']/);
-        if (quotedNameMatch) {
+        if (quotedNameMatch && quotedNameMatch[1]) {
           channelName = quotedNameMatch[1];
         } else {
           const lowerText = messageText.toLowerCase();
@@ -2126,7 +2121,7 @@ var joinChannel = {
             channelName = "Content Creators";
           } else {
             const afterJoin = messageText.match(/(?:join|enter|connect to)\s+(?:the\s+)?([^,.!?\n]+)/i);
-            if (afterJoin) {
+            if (afterJoin && afterJoin[1]) {
               channelName = afterJoin[1].trim();
               channelId = channelName.toLowerCase().replace(/\s+/g, "_");
             }
@@ -2225,13 +2220,13 @@ If the problem persists, please contact support.`
   examples: [
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "Join the trading signals channel"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "I'll join the trading signals channel for you. This will enable collaboration with other trading agents and access to shared insights.",
           action: "JOIN_CHANNEL_POD_PROTOCOL"
@@ -2240,13 +2235,13 @@ If the problem persists, please contact support.`
     ],
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "Connect to channel_abc123"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "Connecting to channel_abc123 now. This will add you to the multi-agent collaboration space for real-time communication.",
           action: "JOIN_CHANNEL_POD_PROTOCOL"
@@ -2255,13 +2250,13 @@ If the problem persists, please contact support.`
     ],
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "Subscribe to the DeFi research group"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "Subscribing to the DeFi research group! You'll now have access to collaborative research projects and shared insights from DeFi-focused agents.",
           action: "JOIN_CHANNEL_POD_PROTOCOL"
@@ -2497,13 +2492,13 @@ ${errorMessage}
   examples: [
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "Show me the protocol statistics"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "I'll fetch the latest PoD Protocol network statistics for you, including agent counts, channel activity, and network health metrics.",
           action: "GET_PROTOCOL_STATS_POD_PROTOCOL"
@@ -2512,13 +2507,13 @@ ${errorMessage}
     ],
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "What's the network status?"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "Let me check the current network status and provide you with comprehensive analytics about the PoD Protocol ecosystem.",
           action: "GET_PROTOCOL_STATS_POD_PROTOCOL"
@@ -2527,13 +2522,13 @@ ${errorMessage}
     ],
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "Display network analytics dashboard"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "Generating the network analytics dashboard with real-time metrics, performance data, and ecosystem insights.",
           action: "GET_PROTOCOL_STATS_POD_PROTOCOL"
@@ -2686,7 +2681,7 @@ var getReputation = {
       let targetAgentId = "";
       let isCurrentAgent = true;
       const agentIdMatch = messageText.match(/(?:for|of|agent)\s+([a-zA-Z0-9_]+)/i);
-      if (agentIdMatch) {
+      if (agentIdMatch && agentIdMatch[1]) {
         targetAgentId = agentIdMatch[1];
         isCurrentAgent = false;
       } else if (messageText.toLowerCase().includes("my") || messageText.toLowerCase().includes("your")) {
@@ -2827,13 +2822,13 @@ ${errorMessage}
   examples: [
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "What's my reputation score?"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "I'll check your current reputation score and provide detailed trust metrics from the PoD Protocol network.",
           action: "GET_REPUTATION_POD_PROTOCOL"
@@ -2842,13 +2837,13 @@ ${errorMessage}
     ],
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "Check reputation for trading_bot_001"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "Let me look up the reputation and trust metrics for trading_bot_001 to help you assess their reliability.",
           action: "GET_REPUTATION_POD_PROTOCOL"
@@ -2857,13 +2852,13 @@ ${errorMessage}
     ],
     [
       {
-        user: "{{user1}}",
+        name: "user",
         content: {
           text: "Show trust analytics"
         }
       },
       {
-        user: "{{agentName}}",
+        name: "assistant",
         content: {
           text: "I'll display comprehensive trust analytics including reputation scores, performance metrics, and reliability data.",
           action: "GET_REPUTATION_POD_PROTOCOL"
