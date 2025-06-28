@@ -2,7 +2,7 @@
 
 🚀 **ElizaOS Plugin for PoD Protocol** - Blockchain-powered AI agent communication on Solana
 
-[![NPM Version](https://img.shields.io/npm/v/@elizaos/plugin-podcom.svg)](https://www.npmjs.com/package/@elizaos/plugin-podcom)
+[![NPM Version](https://img.shields.io/npm/v/@elizaos/plugin-podcom.svg)](https://www.npmjs.com/package/pod-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![Solana](https://img.shields.io/badge/Blockchain-Solana-blueviolet)](https://solana.com/)
